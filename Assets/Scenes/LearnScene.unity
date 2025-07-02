@@ -455,9 +455,33 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ca9868486cd911a48beb6582e16c9236, type: 2}
     m_Events:
     - m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1813118264}
+          m_TargetAssemblyTypeName: BaseLearn, Assembly-CSharp
+          m_MethodName: ActiveInput
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 927279178}
+          m_TargetAssemblyTypeName: BaseLearn, Assembly-CSharp
+          m_MethodName: ActiveInput
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,9 +763,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActionReference: {fileID: -5626502620673722769, guid: 24a76961321f54e4292e24870e9ed68d, type: 3}
-  currentResult: 0
-  result: 1
   nextPlayableDirector: {fileID: 1813118263}
+  learnResult:
+    Value: 20
+  currentLearnResult:
+    Value: 0
 --- !u!1 &1150118955
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,10 +2530,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActionReference: {fileID: 4240860773181194493, guid: 24a76961321f54e4292e24870e9ed68d, type: 3}
-  currentResult: 0
-  result: 1
   nextPlayableDirector: {fileID: 927279177}
-  multiple: 0.1
+  multiple: 0.005
+  LearnResult:
+    Value: 1
+  currentLearnResult:
+    Value: 0
 --- !u!1 &1825768529
 GameObject:
   m_ObjectHideFlags: 0

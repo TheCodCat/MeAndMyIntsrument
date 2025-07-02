@@ -1,13 +1,11 @@
-using Assets.Scripts.Learn;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 
-public abstract class BaseLearn : MonoBehaviour
+public abstract class BaseLearn: MonoBehaviour
 {
-    [SerializeField] private InputActionReference inputActionReference;
-    [SerializeField] private PlayableDirector nextPlayableDirector; 
-
+    public InputActionReference inputActionReference;
+    [SerializeField] private PlayableDirector nextPlayableDirector;
     public void ActiveInput()
     {
         inputActionReference.action.Enable();
@@ -29,5 +27,6 @@ public abstract class BaseLearn : MonoBehaviour
     public virtual void GetInputLearn(InputAction.CallbackContext callbackContext)
     {
         nextPlayableDirector.Play();
+        DeActiveInput();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class CheckLookAtLearn : BaseLearn
 {
     [SerializeField] private float multiple;
-    public LearnResult<float> LearnResult;
+    [SerializeField] private LearnResult<float> LearnResult;
     [SerializeField] private LearnResult<float> currentLearnResult;
 
     private void Start()
@@ -19,7 +19,7 @@ public class CheckLookAtLearn : BaseLearn
         {
             currentLearnResult.Value += callbackContext.ReadValue<Vector2>().SqrMagnitude() * multiple;
 
-            if(currentLearnResult.Value == LearnResult.Value)
+            if(currentLearnResult.Value >= LearnResult.Value)
                 base.GetInputLearn(callbackContext);
         }
 
