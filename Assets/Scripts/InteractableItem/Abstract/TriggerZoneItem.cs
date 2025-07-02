@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public abstract class TriggerZoneItem : Interactable
+public abstract class TriggerZoneItem : IInteractable
 {
     [SerializeField] protected bool isTrigger;
 
-    public override void Interact()
+    public void Interact()
     {
         Debug.Log("TriggerZone");
         if (!isTrigger) return;

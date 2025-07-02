@@ -1,41 +1,45 @@
+using Assets.Scripts.InteractableItem.Interface;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class ActionItem : Interactable
+public abstract class ActionItem : MonoBehaviour, IInteractAction
 {
-    [SerializeField] private InputActionReference actionReference;
+    [field: SerializeField] public InputActionReference InputActionReference { get; set; }
     private bool isAction;
 
-    public void Action()
+    public virtual void Action()
     {
         if (isAction) return;
         isAction = true;
 
-        actionReference.action.Enable();
+        InputActionReference.action.Enable();
 
-        actionReference.action.started += ctx => Interact(ctx);
-        actionReference.action.performed += ctx => Interact(ctx);
-        actionReference.action.canceled += ctx => Interact(ctx);
+        InputActionReference.action.started += ctx => Interact(ctx);
+        InputActionReference.action.performed += ctx => Interact(ctx);
+        InputActionReference.action.canceled += ctx => Interact(ctx);
         Debug.Log("Action");
     }
 
-    public void Deaction()
+    public virtual void Deaction()
     {
         if (!isAction) return;
         isAction = false;
 
 
-        actionReference?.action.Disable();
+        InputActionReference?.action.Disable();
 
-        actionReference.action.started -= ctx => Interact(ctx);
-        actionReference.action.performed -= ctx => Interact(ctx);
-        actionReference.action.canceled -= ctx => Interact(ctx);
+        InputActionReference.action.started -= ctx => Interact(ctx);
+        InputActionReference.action.performed -= ctx => Interact(ctx);
+        InputActionReference.action.canceled -= ctx => Interact(ctx);
         Debug.Log("DeAction");
     }
 
-    public override void Interact(InputAction.CallbackContext callbackContext)
+    public virtual void Interact()
     {
-        base.Interact();
+    }
+
+    public virtual void Interact(InputAction.CallbackContext callbackContext)
+    {
 
         if (callbackContext.started)
         {
@@ -49,6 +53,7 @@ public abstract class ActionItem : Interactable
 
     public string[] GetActionButton()
     {
-        return actionReference.action.bindings[0].path.Split("/");
+        return InputActionReference.action.bindings[0].path.Split("/");
     }
+
 }

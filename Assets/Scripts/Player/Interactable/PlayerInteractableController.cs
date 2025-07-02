@@ -1,3 +1,4 @@
+using Assets.Scripts.InteractableItem.Interface;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -9,7 +10,7 @@ public class PlayerInteractableController : MonoBehaviour
     [SerializeField] private Transform putpoint;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private float distance;
-    private ActionItem currentActionItem = null;
+    private IInteractAction currentActionItem = null;
     private string[] buttons;
     public string[] Buttons
     {
@@ -35,7 +36,7 @@ public class PlayerInteractableController : MonoBehaviour
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
 
         if(Physics.Raycast(ray, out RaycastHit hitInfo, distance))
-            if (hitInfo.transform.TryGetComponent(out Interactable component))
+            if (hitInfo.transform.TryGetComponent(out IInteractable component))
             {
                 component.Interact();
             }
@@ -46,9 +47,9 @@ public class PlayerInteractableController : MonoBehaviour
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, distance))
-            if (hitInfo.transform.TryGetComponent(out Interactable component))
+            if (hitInfo.transform.TryGetComponent(out IInteractable component))
             {
-                if(component is ActionItem item)
+                if(component is IInteractAction item)
                 {
                     currentActionItem = item;
                     currentActionItem.Action();

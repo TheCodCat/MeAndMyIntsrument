@@ -6,7 +6,7 @@ public abstract class BaseLearn: MonoBehaviour
 {
     public InputActionReference inputActionReference;
     [SerializeField] private PlayableDirector nextPlayableDirector;
-    public void ActiveInput()
+    public virtual void ActiveInput()
     {
         inputActionReference.action.Enable();
         inputActionReference.action.started += ctx => GetInputLearn(ctx);
@@ -14,7 +14,7 @@ public abstract class BaseLearn: MonoBehaviour
         inputActionReference.action.canceled += ctx => GetInputLearn(ctx);
     }
 
-    public void DeActiveInput()
+    public virtual void DeActiveInput()
     {
         inputActionReference.action.Disable();
         inputActionReference.action.started -= ctx => GetInputLearn(ctx);

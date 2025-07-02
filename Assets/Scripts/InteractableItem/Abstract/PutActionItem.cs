@@ -1,52 +1,65 @@
+using Assets.Scripts.InteractableItem.Interface;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public abstract class PutActionItem : PutItem
+public abstract class PutActionItem : PutItem, IInteractAction
 {
-    [SerializeField] private InputActionReference actionReference;
+    [field: SerializeField] public InputActionReference InputActionReference { get; set; }
 
     public void OnDisable()
     {
-        if (actionReference == null) return;
+        if (InputActionReference == null) return;
 
-        actionReference.action.Disable();
+        InputActionReference.action.Disable();
 
-        actionReference.action.started -= ctx => ActionInteract(ctx);
-        actionReference.action.performed -= ctx => ActionInteract(ctx);
-        actionReference.action.canceled -= ctx => ActionInteract(ctx);
+        InputActionReference.action.started -= ctx => ActionInteract(ctx);
+        InputActionReference.action.performed -= ctx => ActionInteract(ctx);
+        InputActionReference.action.canceled -= ctx => ActionInteract(ctx);
     }
 
     public override void Interact()
     {
         base.Interact();
-
         if (isPut)
         {
-            if (actionReference == null) return;
+            if (InputActionReference == null) return;
 
-            actionReference.action.Enable();
+            InputActionReference.action.Enable();
 
-            actionReference.action.started += ctx => ActionInteract(ctx);
-            actionReference.action.performed += ctx => ActionInteract(ctx);
-            actionReference.action.canceled += ctx => ActionInteract(ctx);
+            InputActionReference.action.started += ctx => ActionInteract(ctx);
+            InputActionReference.action.performed += ctx => ActionInteract(ctx);
+            InputActionReference.action.canceled += ctx => ActionInteract(ctx);
         }
         else
         {
-            if (actionReference == null) return;
+            if (InputActionReference == null) return;
 
-            actionReference.action.Disable();
+            InputActionReference.action.Disable();
 
-            actionReference.action.started -= ctx => ActionInteract(ctx);
-            actionReference.action.performed -= ctx => ActionInteract(ctx);
-            actionReference.action.canceled -= ctx => ActionInteract(ctx);
+            InputActionReference.action.started -= ctx => ActionInteract(ctx);
+            InputActionReference.action.performed -= ctx => ActionInteract(ctx);
+            InputActionReference.action.canceled -= ctx => ActionInteract(ctx);
         }
 
+    }
+
+    public void Interact(InputAction.CallbackContext callbackContext)
+    {
     }
 
     public virtual void ActionInteract(InputAction.CallbackContext callbackContext)
     {
 
     }
+
+    public void Action()
+    {
+    }
+
+    public void Deaction()
+    {
+    }
+
 }

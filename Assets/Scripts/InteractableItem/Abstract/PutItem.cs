@@ -2,7 +2,7 @@ using Fusion;
 using System.Collections;
 using UnityEngine;
 
-public class PutItem : Interactable
+public abstract class PutItem : MonoBehaviour, IInteractable
 {
     [SerializeField] protected float speed;
     protected bool isPut;
@@ -14,7 +14,7 @@ public class PutItem : Interactable
         rb = GetComponent<Rigidbody>();
     }
 
-    public override void Interact()
+    public virtual void Interact()
     {
         isPut = !isPut;
         rb.isKinematic = isPut;
@@ -28,7 +28,7 @@ public class PutItem : Interactable
             StopCoroutine(coroutine);
     }
 
-        private IEnumerator MoverPut()
+    private IEnumerator MoverPut()
         {
         while (true)
         {
