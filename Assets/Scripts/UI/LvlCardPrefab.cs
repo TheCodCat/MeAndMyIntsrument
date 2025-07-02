@@ -9,7 +9,7 @@ public class LvlCardPrefab : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TMP_Text description;
     [SerializeField] private TMP_Text title;
-    [SerializeField] private SceneAsset sceneAsset;
+    [SerializeField] private string sceneAsset;
 
     public void Init(Card card)
     {
@@ -22,6 +22,6 @@ public class LvlCardPrefab : MonoBehaviour
     public void LoadSceneCard()
     {
         ServiceLocator.Instance.Get<HideService>().Hide(() => 
-        ServiceLocator.Instance.Get<SceneService>().ChangeSceneName(sceneAsset.name));
+        ServiceLocator.Instance.Get<SceneService>().ChangeSceneName(sceneAsset));
     }
 }

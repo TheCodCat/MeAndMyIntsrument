@@ -11,6 +11,6 @@ namespace Assets.Scripts.ScriptableObjects
         public string NameCard;
         public Sprite Icon;
         [TextArea] public string Description;
-        public SceneAsset NameScene;
+        public string NameScene;
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMoveController : MonoBehaviour
+public class PlayerMoveController : MonoBehaviour, IEscExecute
 {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private float speed;
@@ -10,6 +10,8 @@ public class PlayerMoveController : MonoBehaviour
     [SerializeField] private float gravity;
     [SerializeField] private float multiply;
     private Vector3 moveDirection;
+    [field: SerializeField] public bool IsExecute { get; set; } = true;
+
 
     private void Update()
     {
@@ -24,8 +26,19 @@ public class PlayerMoveController : MonoBehaviour
         characterController.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
     }
 
+    private void OnEnable()
+    {
+        PlayerCursorController.ChangeEsc += GetEsc;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCursorController.ChangeEsc -= GetEsc;
+    }
+
     public void GetInputDirection(InputAction.CallbackContext callbackContext)
     {
+        if (!IsExecute) return;
         moveDirection.x = callbackContext.ReadValue<Vector2>().x;
         moveDirection.z = callbackContext.ReadValue<Vector2>().y;
     }
@@ -33,5 +46,10 @@ public class PlayerMoveController : MonoBehaviour
     public void Jump(InputAction.CallbackContext callbackContext)
     {
         isJump = callbackContext.ReadValueAsButton();
+    }
+
+    public void GetEsc(bool value)
+    {
+        IsExecute = !value;
     }
 }
